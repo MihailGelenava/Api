@@ -1,0 +1,34 @@
+{
+  "baseUrl": "https://jsonplaceholder.typicode.com",
+  "TC1": {
+    "endpoint": "/posts",
+    "statusCode": 200,
+    "contentType": "application/json"
+  },
+  "TC2": {
+    "endpoint": "/posts/99",
+    "statusCode": 200,
+    "expectedUserId": 10,
+    "expectedId": 99
+  },
+  "TC3": {
+    "endpoint": "/posts/150",
+    "statusCode": 404
+  },
+  "TC4": {
+    "endpoint": "/posts",
+    "statusCode": 201,
+    "userId": 1,
+    "randomStringLength": 10
+  },
+  "TC5": {
+    "endpoint": "/users",
+    "userFilePath": "Resources\\TestData\\UserTC5.json",
+    "expectedId": 5,
+    "statusCode": 200
+  },
+  "TC6": {
+    "endpoint": "/users/5",
+    "statusCode": 200
+  }
+}
