@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace RestAPI.DTO
+namespace Models
 {
-    public class UsersDTO
+    public class UserModel
     {
         [JsonProperty("id")]
         public long Id { get; set; }
@@ -28,21 +28,23 @@ namespace RestAPI.DTO
         [JsonProperty("company")]
         public Company Company { get; set; }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            return Equals(obj as UsersDTO);
-        }
-        public bool Equals(UsersDTO other)
-        {
-            return this.Id == other.Id && this.Name.Equals(other.Name) && this.Username.Equals(other.Username) 
-                && this.Website.Equals(other.Website) && this.Email.Equals(other.Email) && this.Address.Equals(other.Address)
-                && this.Company.Equals(other.Company) && this.Phone.Equals(other.Phone);
-        }
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(Id,Name,Username,Website,Email,Address,Company,Phone);
+            return obj is UserModel model &&
+                   Id == model.Id &&
+                   Name == model.Name &&
+                   Username == model.Username &&
+                   Email == model.Email &&
+                   EqualityComparer<Address>.Default.Equals(Address, model.Address) &&
+                   Phone == model.Phone &&
+                   Website == model.Website &&
+                   EqualityComparer<Company>.Default.Equals(Company, model.Company);
         }
 
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id, Name, Username, Email, Address, Phone, Website, Company);
+        }
     }
     public partial class Address
     {
@@ -61,20 +63,22 @@ namespace RestAPI.DTO
         [JsonProperty("geo")]
         public Geo Geo { get; set; }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            return Equals(obj as Address);
+            return obj is Address address &&
+                   Street == address.Street &&
+                   Suite == address.Suite &&
+                   City == address.City &&
+                   Zipcode == address.Zipcode &&
+                   EqualityComparer<Geo>.Default.Equals(Geo, address.Geo);
         }
-        public bool Equals(Address other)
-        {
-            return this.Street.Equals(other.Street) && this.Suite.Equals(other.Suite) && this.City.Equals(other.City )
-                && this.Zipcode.Equals(other.Zipcode) && this.Geo.Equals(other.Geo);
-        }
+
         public override int GetHashCode()
         {
             return HashCode.Combine(Street, Suite, City, Zipcode, Geo);
         }
     }
+
     public partial class Geo
     {
         [JsonProperty("lat")]
@@ -83,19 +87,19 @@ namespace RestAPI.DTO
         [JsonProperty("lng")]
         public string Lng { get; set; }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            return Equals(obj as Geo);
+            return obj is Geo geo &&
+                   Lat == geo.Lat &&
+                   Lng == geo.Lng;
         }
-        public bool Equals(Geo other)
-        {
-            return this.Lat.Equals(other.Lat) && this.Lng.Equals(other.Lng);
-        }
+
         public override int GetHashCode()
         {
-            return HashCode.Combine(Lat,Lng);
+            return HashCode.Combine(Lat, Lng);
         }
     }
+
     public partial class Company
     {
         [JsonProperty("name")]
@@ -107,17 +111,17 @@ namespace RestAPI.DTO
         [JsonProperty("bs")]
         public string Bs { get; set; }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            return Equals(obj as Company);
+            return obj is Company company &&
+                   Name == company.Name &&
+                   CatchPhrase == company.CatchPhrase &&
+                   Bs == company.Bs;
         }
-        public bool Equals(Company other)
-        {
-            return this.Name.Equals(other.Name) && this.CatchPhrase.Equals(other.CatchPhrase) && this.Bs.Equals(other.Bs);
-        }
+
         public override int GetHashCode()
         {
-            return HashCode.Combine(Name,CatchPhrase,Bs);
+            return HashCode.Combine(Name, CatchPhrase, Bs);
         }
     }
 }

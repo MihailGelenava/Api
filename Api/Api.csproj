@@ -21,10 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Resources\TestData\TestData.json">
+    <None Update="Resources\testConfig.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\TestData\UserTC5.json">
+    <None Update="Resources\TestData\testData.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

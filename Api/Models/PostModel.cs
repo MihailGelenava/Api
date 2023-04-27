@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace RestAPI.DTO
+namespace Models
 {
-    public class PostsDTO
+    public class PostModel
     {
         [JsonProperty("userId")]
         public long UserId { get; set; }
@@ -16,9 +16,9 @@ namespace RestAPI.DTO
         [JsonProperty("body")]
         public string Body { get; set; }
         
-        public PostsDTO() { }
+        public PostModel() { }
         
-        public PostsDTO(long userId, string title, string body) {
+        public PostModel(long userId, string title, string body) {
             this.UserId = userId;
             this.Title = title;
             this.Body = body;
@@ -26,15 +26,15 @@ namespace RestAPI.DTO
 
         public override bool Equals(object? obj)
         {
-            return base.Equals(obj as PostsDTO);
+            return obj is PostModel model &&
+                   UserId == model.UserId &&
+                   Title == model.Title &&
+                   Body == model.Body;
         }
-        public bool Equals(PostsDTO other)
-        {
-            return this.UserId == other.UserId && this.Title == other.Title && this.Body == other.Body;
-        }
+
         public override int GetHashCode()
         {
-            return HashCode.Combine(UserId,Title,Body);
+            return HashCode.Combine(UserId, Title, Body);
         }
     }
 }
